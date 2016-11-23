@@ -1,2 +1,3 @@
 - Add user checking for admins
 - Add loading settings from config
+- Do README.md

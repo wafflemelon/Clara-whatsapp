@@ -1,1 +1,1 @@
-yowsup2>=2.5.0
+https://github.com/tawanda/yowsup/archive/master.zip>=2.5.0

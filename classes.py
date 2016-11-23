@@ -9,6 +9,7 @@ class Command:
 
     def __init__(self, bot, comm, *, alias=None, desc="",
                  admin=False, unprefixed=False, listed=True):
+        self.bot = bot
         self.layer = bot.layer
         self.comm = comm
         self.desc = desc
@@ -38,6 +39,9 @@ class Command:
 
     def run(self, message):
         """ Does type checking for command arguments """
+        
+        if not self.layer:
+            self.layer = bot.layer
 
         args = message.body.split(" ")[1:]
 
@@ -102,7 +106,8 @@ class Bot:
     
     def __init__(self, prefix="!"):
         self.cache = []
-        self.commands = []
+        self.commands = {}
+        self.layer = None
         
     def set_layer(self, layer):
         self.layer = layer

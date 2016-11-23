@@ -7,11 +7,10 @@ class MessageLayer(YowInterfaceLayer):
     """ This class receives messages. """
     
     def reply(self, message, text):
-         message_out = TextMessageProtocolEntity(
+        message_out = TextMessageProtocolEntity(
             text,
             to = message.getFrom()
         )
-
         self.toLower(message_out)
     
     @ProtocolEntityCallback("message")
@@ -20,15 +19,17 @@ class MessageLayer(YowInterfaceLayer):
 
         if not hasattr(self, "bot"):
             # Get the bot from the stack
-            self.bot = self.__stack.bot
+            self.bot = self.getStack().bot
             self.bot.set_layer(self)
         
         # Notify the whatsapp servers we read the message so we don't receive it again
         receipt = OutgoingReceiptProtocolEntity(message.getId(), message.getFrom(), 'read', message.getParticipant())
-        self.toLower(receipt)
         
-		# Parse command
-        self.bot.parse_message(message)
+        # Parse command
+        self.bot.parse_commands(message)
+        
+        # Send receipt
+        self.toLower(receipt)
         
         """
         # Commented out, will now be handled by the Bot

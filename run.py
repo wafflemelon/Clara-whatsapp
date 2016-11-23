@@ -1,15 +1,21 @@
 from yowsup.stacks import  YowStackBuilder
-from .layer import MessageLayer
+from layer import MessageLayer
 from yowsup.layers.auth import AuthError
 from yowsup.layers import YowLayerEvent
 from yowsup.layers.network import YowNetworkLayer
 from yowsup.env import YowsupEnv
-from .classes import Bot
+from classes import Bot
+import logging
+
+# set up logger
+logger = logging.getLogger()
+logger.addHandler(logging.FileHandler('debug.log', encoding='utf-8'))
+logger.setLevel(logging.DEBUG)
 
 # Obtain password using `yowsup-cli registration -C COUNTRY_CODE -p PHONE_NUMBER -r sms`.
 # Then: `yowsup-cli registration -C COUNTRY_CODE -p PHONE_NUMBER -R VERIFICATION_CODE`.
 # This will return a base64 encoded password. DO NOT DECODE THIS, JUST PUT THAT AS PASSWORD
-CREDENTIALS = ("phone", "password")
+CREDENTIALS = ("phone_number","password")
 
 bot = Bot(prefix="owo!")
 
@@ -25,7 +31,10 @@ def help_(message):
         res = "Use '? <command>' for help on a specific command\nUse {0.prefix}commands for a list of commands".format(bot)
     bot.layer.reply(message, res)
 
-
+@bot.command("ping", desc="pong!")
+def ping_(message):
+	bot.layer.reply(message, "Pong!")
+	
 # Create the client 
 stackBuilder = YowStackBuilder()
 
