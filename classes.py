@@ -1,3 +1,5 @@
+import logging
+
 class UnimplementedError(Exception):
     pass
     
@@ -39,11 +41,12 @@ class Command:
 
     def run(self, message):
         """ Does type checking for command arguments """
+        logging.debug("Runing command: {}".format(self.comm))
         
         if not self.layer:
             self.layer = bot.layer
 
-        args = message.body.split(" ")[1:]
+        args = message.getBody().split(" ")[1:]
 
         args_name = inspect.getfullargspec(self.func)[0][1:]
 
@@ -80,8 +83,8 @@ class Command:
 
             for s in self.subcommands:
                 if subcomm == s.comm:
-                    c = message.body.split(" ")
-                    message.body = c[0] + " " + " ".join(c[2:])
+                    c = message.getBody().split(" ")
+                    message.setBody(c[0] + " " + " ".join(c[2:]))
 
                     s.run(message)
                     break

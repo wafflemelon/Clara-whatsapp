@@ -15,7 +15,7 @@ logger.setLevel(logging.DEBUG)
 # Obtain password using `yowsup-cli registration -C COUNTRY_CODE -p PHONE_NUMBER -r sms`.
 # Then: `yowsup-cli registration -C COUNTRY_CODE -p PHONE_NUMBER -R VERIFICATION_CODE`.
 # This will return a base64 encoded password. DO NOT DECODE THIS, JUST PUT THAT AS PASSWORD
-CREDENTIALS = ("phone_number","password")
+CREDENTIALS = ("phone", "password")
 
 bot = Bot(prefix="owo!")
 
