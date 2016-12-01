@@ -134,12 +134,12 @@ class Bot:
             w = cl.pop(0).lower().replace("\r","")
             m = " ".join(cl)
 
-            if w in [command for command in self.commands if not command.unprefixed]:
+            if w in [name for name, command in self.commands.items() if not command.unprefixed]:
                 yield from self.commands[w].run(message)
 
         else:
             cl = content.split(" ")
             w = cl.pop(0).lower()
 
-            if w in [command for command in self.commands if command.unprefixed]:
+            if w in [name for name, command in self.commands.items() if command.unprefixed]:
                 yield from self.commands[w].run(message)
