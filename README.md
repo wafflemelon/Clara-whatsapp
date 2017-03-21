@@ -1,2 +1,2 @@
-# owo-whatsapp-this
-Whatsapp bot
+# Clara-whatsapp
+A whatsapp bot written in Python. Contributed by @martmists
